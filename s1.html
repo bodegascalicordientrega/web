@@ -1,1 +1,115 @@
-Jhonatan 3042854356 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Worldwide Logistics Services.">
+    <meta name="keywords" content="armenia quindio, compra, venta, clasificados, productos, Colombia, Contraentrega">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Contraentrega">
+    <meta property="og:title" content="@armeniaquindio - Compra y venta en Armenia Quindío">
+    <meta property="og:description" content="Compra y venta en Armenia Quindío, Colombia. Publica tus productos en Contraentrega.">
+    <meta property="og:image" content="URL-de-tu-imagen">
+    <meta property="og:url" content="https://www.tusitio.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@armeniaquindio - Compra y venta en Armenia Quindío">
+    <meta name="twitter:description" content="Compra y venta en Armenia Quindío, Colombia. Publica tus productos en Contraentrega.">
+    <meta name="twitter:image" content="URL-de-tu-imagen">
+    <meta name="twitter:url" content="https://www.tusitio.com">
+    <meta name="google-site-verification" content="your-verification-code" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>@bodegascali</h1>
+            <p>Punto Cordientrega: Cl. 11 #9-20, Comuna 3, Centro Cali, Valle, Colombia</p>
+        </header>
+
+        <div class="buttons">
+            <a href="https://wa.me/573215970535" target="_blank">WHATSAPP</a>
+            <a href="tel:+573215970535" target="_blank">LLAMAR</a>
+        </div>
+        <section>
+            <p>CATÁLOGO</p>
+
+            <form onsubmit="searchProducts(); return false;">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Buscar inventario...">
+                    <button type="submit">Buscar</button>
+                </div>
+            </form>
+
+            <!-- Inventario -->
+            <section>
+                <h2>Inventario</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SKU</th>
+                            <th>Nombre</th>
+                            <th>Ubicación</th>
+                            <th>Detalles</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody id="product-table-body">
+                        <!-- Las filas se agregarán aquí dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>&copy; <span id="year"></span> <strong>Cordientrega</strong></p>
+                <p>Bitcoin: <a href="bitcoin:15gdaABbh6oZZG4kfQPXoSdqj9YMsg5RaH" target="_blank" rel="noopener noreferrer">15gdaABbh6oZZG4kfQPXoSdqj9YMsg5RaH</a></p>
+            </footer>
+        </div>
+
+    <script>
+        const productos = [
+            { sku: "1", nombre: "Juguetería, Piñatería, Hogar, Salud y Belleza", ubicacion: "-", detalles: "+573105938658", precio: 500000, stock: 10 },
+            { sku: "2", nombre: "DJ", ubicacion: "-", detalles: "+573215340988", precio: 1000000, stock: 5 },
+            { sku: "3", nombre: "DJ", ubicacion: "-", detalles: "+573215340988", precio: 150000, stock: 0 }
+        ];
+
+        function actualizarTablaProductos() {
+            const tableBody = document.getElementById("product-table-body");
+            tableBody.innerHTML = ""; // Limpiamos la tabla antes de agregar nuevas filas
+
+            productos.forEach(producto => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${producto.sku}</td>
+                    <td>${producto.nombre}</td>
+                    <td>${producto.ubicacion}</td>
+                    <td>${producto.detalles}</td>
+                    <td>${producto.precio}</td>
+                    <td>${producto.stock}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Función de búsqueda
+        function searchProducts() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const rows = document.querySelectorAll("#product-table-body tr");
+
+            rows.forEach(row => {
+                const title = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
+                row.style.display = title.includes(filter) ? "table-row" : "none";
+            });
+        }
+
+        // Cargar los productos cuando la página se carga
+        window.onload = function() {
+            actualizarTablaProductos();
+            document.getElementById("year").textContent = new Date().getFullYear();
+        };
+    </script>
+</body>
+</html> 
