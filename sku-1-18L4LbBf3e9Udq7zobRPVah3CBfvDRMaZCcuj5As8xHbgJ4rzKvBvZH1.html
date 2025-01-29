@@ -237,24 +237,28 @@
         
 <!-- Inventario -->
         <section>
-            <h2>Inventario</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Ajustar Cantidad</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>-</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+    <h2>Inventario</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Ajustar Cantidad</th>
+                <th>Precio</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="producto1">
+                <td>
+                    <button class="adjust-quantity" data-product="producto1" data-action="decrease">-</button>
+                    <span id="cantidad-producto1">1</span>
+                    <button class="adjust-quantity" data-product="producto1" data-action="increase">+</button>
+                </td>
+                <td id="precio-producto1">Cargando...</td>
+                <td id="stock-producto1">-</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
             <!-- Footer -->
         <footer class="footer">
@@ -375,6 +379,100 @@ function searchProducts() {
         product.style.display = title.includes(filter) ? 'block' : 'none';
     });
 }
+
+// Precios fijos en COP para cada producto
+const preciosCOP = {
+    producto1: 500000, // Precio en COP para Producto 1
+    producto2: 10000000, // Precio en COP para Producto 2
+    producto3: 150000, // Precio en COP para Producto 3 
+    producto4: 500000  // Precio en COP para Producto 4 
+};
+
+// Función para obtener el precio en Lightning (en satoshis) para un producto
+async function calcularPrecioLightning(cop) {
+    const tipoDeCambioCOPaUSD = await obtenerTipoDeCambioCOPaUSD();
+    const precioUSD = cop / tipoDeCambioCOPaUSD;
+    const precioBTC = await obtenerPrecioBTC();
+    const montoBTC = precioUSD / precioBTC;
+    return Math.round(montoBTC * 100000000); // Convertimos BTC a satoshis
+}
+
+// Función para actualizar los precios en la página
+async function actualizarPrecios() {
+    for (const [producto, precioCOP] of Object.entries(preciosCOP)) {
+        const precioLightning = await calcularPrecioLightning(precioCOP);
+        if (precioLightning !== null) {
+            // Actualizamos el precio en el HTML
+            const precioElement = document.getElementById(`precio-${producto}`);
+            if (precioElement) {
+                precioElement.innerText = `Precio: ${precioCOP} COP / ${precioLightning} satoshis`;
+            }
+
+            // Actualizamos el stock
+            const stockElement = document.getElementById(`stock-${producto}`);
+            if (stockElement) {
+                stockElement.innerText = 'Disponible'; // Este puede actualizarse con la API del stock si es necesario
+            }
+        }
+    }
+}
+
+// Función para actualizar la cantidad de productos cuando se hace clic en los botones
+function actualizarCantidad(producto, action) {
+    const cantidadElement = document.getElementById(`cantidad-${producto}`);
+    let cantidad = parseInt(cantidadElement.innerText);
+
+    if (action === 'increase') {
+        cantidad++;
+    } else if (action === 'decrease' && cantidad > 0) {
+        cantidad--;
+    }
+
+    cantidadElement.innerText = cantidad;
+
+    // Actualizamos el precio basado en la cantidad seleccionada
+    const precioElement = document.getElementById(`precio-${producto}`);
+    const precioCOP = preciosCOP[producto] * cantidad;
+    calcularPrecioLightning(precioCOP).then(precioLightning => {
+        precioElement.innerText = `Precio: ${precioCOP} COP / ${precioLightning} satoshis`;
+    });
+}
+
+// Función para manejar clics en los botones de ajustar cantidad
+function manejarBotonCantidad() {
+    const botonesCantidad = document.querySelectorAll('.adjust-quantity');
+
+    botonesCantidad.forEach(boton => {
+        boton.addEventListener('click', (event) => {
+            const producto = event.target.dataset.product;
+            const action = event.target.dataset.action;
+            actualizarCantidad(producto, action);
+        });
+    });
+}
+
+// Función para manejar los botones de compra y cotización
+function manejarBotonesCompraCotizar() {
+    const botones = document.querySelectorAll('.buttons a');
+
+    botones.forEach(boton => {
+        boton.addEventListener('click', (event) => {
+            const producto = event.target.dataset.product;
+            const cantidad = document.getElementById(`cantidad-${producto}`).innerText;
+            const precioCOP = preciosCOP[producto] * cantidad;
+
+            // Aquí puedes hacer la solicitud al servidor con el precio y cantidad
+            console.log(`Producto: ${producto}, Cantidad: ${cantidad}, Total COP: ${precioCOP}`);
+        });
+    });
+}
+
+// Inicialización cuando la página se carga
+window.onload = function() {
+    manejarBotonCantidad();  // Maneja los botones de ajustar cantidad
+    manejarBotonesCompraCotizar();  // Maneja los botones de comprar y cotizar
+    actualizarPrecios();  // Actualiza precios y stock
+};
 
 // Actualizar el año en el footer
 document.getElementById("year").textContent = new Date().getFullYear();
