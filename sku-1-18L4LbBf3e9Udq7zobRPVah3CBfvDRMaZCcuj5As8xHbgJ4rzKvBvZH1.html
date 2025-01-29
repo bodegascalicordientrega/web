@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -19,6 +19,27 @@
     <meta name="twitter:url" content="https://www.tusitio.com">
     <meta name="google-site-verification" content="your-verification-code" />
 
+<!-- Facebook Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'your-pixel-id');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=your-pixel-id&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Facebook Pixel -->
+</head>
+
+    
     <title>@armeniaquindio - Compra y venta en Armenia Quindío</title>
 
     <!-- Datos estructurados con Schema.org -->
@@ -34,7 +55,7 @@
             "name": "Contraentrega Armenia Quindío"
         }
     }
-    </script>
+ </script>
 
     <!-- Favicon -->
     <link rel="icon" href="URL-del-favicon" type="image/png">
@@ -49,7 +70,6 @@
     </script>
 
     <style>
-        /* Estilos para la página */
         body {
             font-family: Arial, sans-serif;
             background-color: #f1f1f1;
@@ -61,54 +81,116 @@
             height: 100vh;
             text-align: center;
         }
-
         .container {
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 600px;
+            width: 90%; 
+            max-width: 600px; 
             padding: 20px;
-            overflow-y: auto;
-            max-height: 80vh;
+            overflow-y: auto; 
+            max-height: 80vh; 
+            height: 100%; 
         }
-
-        .search-bar {
+        h1, h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            font-size: 1.2em;
             margin-bottom: 20px;
         }
-
-        .search-bar input {
-            width: 80%;
-            padding: 10px;
-            margin-right: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        .search-bar button {
-            padding: 10px 15px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background-color: #000;
+        .buttons a {
+            display: block;
+            background-color: #000000;
             color: white;
-            cursor: pointer;
-        }
-
-        .product {
-            background-color: #f9f9f9;
-            padding: 15px;
+            padding: 10px;
+            margin: 5px 0;
+            text-decoration: none;
             border-radius: 5px;
-            margin-bottom: 15px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .buttons a:hover {
+            background-color: #333333;
+        }
+        .footer {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 20px;
+        }
+        form {
+            margin-top: 20px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        button {
+            background-color: #000000;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #333333;
+        }
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            overflow-x: auto;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        td {
+            background-color: #fafafa;
+        }
+        h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-top: 20px;
         }
 
         .clickable {
             color: #007BFF;
             text-decoration: underline;
             cursor: pointer;
+            transition: color 0.3s ease-in-out;
         }
 
         .clickable:hover {
             color: #0056b3;
+            text-decoration: none;
+        }
+
+        /* Lazy loading de imágenes */
+        img[loading="lazy"] {
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+        img[loading="lazy"]:not([src=""]) {
+            opacity: 1;
         }
     </style>
 </head>
