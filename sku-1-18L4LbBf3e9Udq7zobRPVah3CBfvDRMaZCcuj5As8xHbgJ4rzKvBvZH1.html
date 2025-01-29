@@ -254,6 +254,25 @@
 
         <script>
 
+    // Función para actualizar el enlace de compra con la factura de Lightning
+    function updateLightningLink() {
+        const quantity = document.getElementById('cantidad-comprar').textContent;
+        const pricePerItem = 1000; // Precio por producto en satoshis (Ejemplo: 1000 satoshis por producto)
+
+        const totalPrice = quantity * pricePerItem; // Precio total en satoshis
+
+        // Aquí se genera el enlace de pago Lightning con la factura correspondiente
+        const lightningLink = `lightning:lnbc${totalPrice}n1p0leczdpp5tkp4en0kn5ckzq69gzue7f5ryg6a3mcwm5ev6hz5c2zqff7hx6a7msxcnfw8rfrmlwfrpky2g4xarx5f8e6gsja9pwmcrxy9l6vfyx4ux84mv5exzpp5hhsfnx3pwrm23r3sykj3lgw2fddmf07mjdr9gqmp2v78jxgfa3fcnmmy4szvhph6lznzldw0s93m0f88gklsm9mc9je2xf6g2q6w6f9znm32e9qf95j`;
+
+        // Actualizar el enlace con la factura generada
+        document.getElementById("comprar-btn-1").setAttribute("href", lightningLink);
+    }
+
+    // Llamar a la función de actualización del enlace al ajustar la cantidad
+    document.querySelectorAll('.adjust-quantity').forEach(button => {
+        button.addEventListener('click', updateLightningLink);
+    });
+
 document.querySelectorAll('.adjust-quantity').forEach(button => {
     button.addEventListener('click', function() {
         const action = this.getAttribute('data-action');
