@@ -70,23 +70,7 @@
     </script>
 
     <style>
-        Lamento que aún persista el problema. Vamos a realizar una revisión más detallada para corregir el desbordamiento.
-
-Aquí hay algunos pasos adicionales que podrían ayudar a resolver el problema:
-
-1. Establecer límites claros en todos los elementos: Es crucial asegurarse de que los elementos dentro del contenedor no se salgan de su tamaño asignado.
-
-
-2. Revisar el iframe y otros elementos anidados: A veces el problema radica en que el iframe u otros elementos no respetan los límites de sus contenedores.
-
-
-3. Uso de overflow: hidden para evitar desbordamientos no deseados.
-
-
-
-Te proporcionaré un CSS actualizado que también incluye algunos cambios adicionales para garantizar que el contenedor y sus elementos internos se ajusten correctamente.
-
-Actualización del CSS:
+       
 
 * {
     box-sizing: border-box;  /* Asegura que padding y border no afecten el tamaño total de los elementos */
@@ -117,9 +101,9 @@ body {
     width: 90%;
     max-width: 600px;
     padding: 20px;
+    height: auto;  /* El contenedor mantiene su tamaño pequeño */
     overflow-y: auto;  /* Permite el desplazamiento si el contenido excede el límite del contenedor */
-    max-height: 80vh;
-    height: auto;
+    max-height: 400px;  /* Se mantiene el tamaño pequeño del contenedor */
     position: relative;
     overflow-x: hidden;  /* Evita desbordamientos horizontales */
 }
@@ -252,6 +236,19 @@ img[loading="lazy"]:not([src=""]) {
     opacity: 1;
 }
 
+/* Prevención de desbordamiento horizontal */
+.container, .product {
+    overflow: hidden;  /* Asegura que nada se desborde fuera del contenedor */
+}
+
+/* Ajuste para garantizar que el contenido de los productos se ajuste sin desbordar */
+.product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
 
 
     </style>
