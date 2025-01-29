@@ -255,9 +255,9 @@
                     <span id="cantidad-producto1">1</span>
                     <button class="adjust-quantity" data-product="producto1" data-action="increase">+</button>
                 </td>
-                <td id="cantidad-producto1-display">1</td>
-                <td id="precio-producto1">Cargando...</td>
-                <td id="stock-producto1">Disponible</td>
+                <td id="cantidad-${producto}"></td>
+                <td id="precio-${producto}">Cargando...</td>
+                <td id="stock-${producto}">Disponible</td>
             </tr>
         </tbody>
     </table>
@@ -475,6 +475,7 @@ window.onload = function() {
     manejarBotonCantidad();  // Maneja los botones de ajustar cantidad
     manejarBotonesCompraCotizar();  // Maneja los botones de comprar y cotizar
     actualizarPrecios();  // Actualiza precios y stock
+    agregarProductosAlHTML(); // Agregar productos al HTML
 };
 
 // Actualizar el año en el footer
