@@ -49,26 +49,17 @@
     </script>
 
     <style>
-        * {
-            box-sizing: border-box;  
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;  
-            overflow-x: hidden;  
-        }
-
+        /* Estilos para la página */
         body {
             font-family: Arial, sans-serif;
             background-color: #f1f1f1;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             text-align: center;
-            overflow-y: auto;  
         }
 
         .container {
@@ -78,178 +69,47 @@
             width: 90%;
             max-width: 600px;
             padding: 20px;
-            height: auto;  
-            overflow-y: auto;  
-            max-height: 400px;  
-            position: relative;
-            overflow-x: hidden;  
+            overflow-y: auto;
+            max-height: 80vh;
         }
 
-        .product iframe {
-            width: 100%;  
-            height: 100%;  
-            border: none;
-            padding: 0;
-            margin: 0;
-            border-radius: 8px;  
-            box-shadow: 0 2px 8px rgba(63,69,81,0.16);  
-            display: block;
-        }
-
-        h1, h2 {
-            font-size: 2.5em;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: #666;
-            font-size: 1.2em;
+        .search-bar {
             margin-bottom: 20px;
         }
 
-        .buttons a {
-            display: block;
-            background-color: #000000;
-            color: white;
+        .search-bar input {
+            width: 80%;
             padding: 10px;
-            margin: 5px 0;
-            text-decoration: none;
+            margin-right: 10px;
             border-radius: 5px;
-            font-size: 1em;
-            transition: background-color 0.3s;
-        }
-
-        .buttons a:hover {
-            background-color: #333333;
-        }
-
-        .footer {
-            font-size: 0.9em;
-            color: #777;
-            margin-top: 20px;
-        }
-
-        form {
-            margin-top: 20px;
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        input[type="text"], input[type="number"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
             border: 1px solid #ccc;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
             border-radius: 5px;
-        }
-
-        input[type="file"] {
-            margin: 10px 0;
-        }
-
-        button {
-            background-color: #000000;
+            border: 1px solid #ccc;
+            background-color: #000;
             color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
             cursor: pointer;
-            font-size: 1.1em;
-            width: 100%;
         }
 
-        button:hover {
-            background-color: #333333;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 30px;
-            border-collapse: collapse;
-            overflow-x: auto;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ccc;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-
-        td {
-            background-color: #fafafa;
-        }
-
-        h2 {
-            font-size: 1.8em;
-            color: #333;
-            margin-top: 20px;
+        .product {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
         }
 
         .clickable {
             color: #007BFF;
             text-decoration: underline;
             cursor: pointer;
-            transition: color 0.3s ease-in-out;
         }
 
         .clickable:hover {
             color: #0056b3;
-            text-decoration: none;
         }
-
-        /* Lazy loading de imágenes */
-        img[loading="lazy"] {
-            opacity: 0;
-            transition: opacity 0.3s ease-in;
-        }
-
-        img[loading="lazy"]:not([src=""]) {
-            opacity: 1;
-        }
-
-        /* Prevención de desbordamiento horizontal */
-        .container, .product {
-            overflow: hidden;  
-        }
-
-        .product {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* Media Queries para móviles */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-
-            h2 {
-                font-size: 1.6em;
-            }
-
-            p, .buttons a {
-                font-size: 1em;
-            }
-
-            .container {
-                padding: 15px;
-                max-width: 100%;
-            }
-
-            .product iframe {
-                max-width: 100%;
-                height: 250px;
-            }
-        }
-
     </style>
 </head>
 
