@@ -70,41 +70,70 @@
     </script>
 
     <style>
-        body {
-    font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
+        Lamento que aún persista el problema. Vamos a realizar una revisión más detallada para corregir el desbordamiento.
+
+Aquí hay algunos pasos adicionales que podrían ayudar a resolver el problema:
+
+1. Establecer límites claros en todos los elementos: Es crucial asegurarse de que los elementos dentro del contenedor no se salgan de su tamaño asignado.
+
+
+2. Revisar el iframe y otros elementos anidados: A veces el problema radica en que el iframe u otros elementos no respetan los límites de sus contenedores.
+
+
+3. Uso de overflow: hidden para evitar desbordamientos no deseados.
+
+
+
+Te proporcionaré un CSS actualizado que también incluye algunos cambios adicionales para garantizar que el contenedor y sus elementos internos se ajusten correctamente.
+
+Actualización del CSS:
+
+* {
+    box-sizing: border-box;  /* Asegura que padding y border no afecten el tamaño total de los elementos */
+}
+
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;  /* Asegura que el body ocupe toda la altura de la ventana */
+    overflow-x: hidden;  /* Evita el desbordamiento horizontal */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     text-align: center;
-    overflow: hidden;  /* Evita el desbordamiento del contenido */
+    overflow-y: auto;  /* Habilita el scroll si el contenido es mayor que la pantalla */
 }
 
 .container {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%; 
-    max-width: 600px; 
+    width: 90%;
+    max-width: 600px;
     padding: 20px;
-    overflow-y: auto;  /* Habilita el desplazamiento si el contenido excede la altura */
-    max-height: 80vh;  /* Limita la altura del contenedor */
-    height: 100%; 
+    overflow-y: auto;  /* Permite el desplazamiento si el contenido excede el límite del contenedor */
+    max-height: 80vh;
+    height: auto;
+    position: relative;
+    overflow-x: hidden;  /* Evita desbordamientos horizontales */
 }
 
 .product iframe {
-    width: 100%;  /* Hace que el iframe ocupe todo el ancho disponible */
-    height: auto;  /* Ajusta la altura proporcionalmente */
+    width: 100%;  /* Asegura que el iframe ocupe todo el ancho del contenedor */
+    height: 100%;  /* Ajusta la altura proporcionalmente */
     border: none;
     padding: 0;
     margin: 0;
-    border-radius: 8px;  /* Asegura que los bordes sean redondeados */
-    box-shadow: 0 2px 8px rgba(63,69,81,0.16);  /* Agrega sombra */
-    margin-top: 1.6em;
-    margin-bottom: 0.9em;
+    border-radius: 8px;  /* Bordes redondeados */
+    box-shadow: 0 2px 8px rgba(63,69,81,0.16);  /* Sombra suave */
+    display: block;
+    max-width: 100%;  /* Asegura que el iframe no se desborde del contenedor */
 }
 
 h1, h2 {
@@ -222,6 +251,9 @@ img[loading="lazy"] {
 img[loading="lazy"]:not([src=""]) {
     opacity: 1;
 }
+
+
+
     </style>
 
   <!-- Google Tag Manager -->
