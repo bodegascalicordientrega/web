@@ -518,6 +518,30 @@ function manejarBotonCantidad() {
     });
 }
 
+// Función para agregar productos dinámicamente al HTML
+function agregarProductosAlHTML() {
+    const container = document.getElementById('productos-container');
+    if (container) {
+        for (const producto in preciosCOP) {
+            const productoDiv = document.createElement('div');
+            productoDiv.classList.add('product');
+            productoDiv.innerHTML = `
+                <h2>${producto}</h2>
+                <p id="precio-${producto}">Cargando precio...</p>
+                <div class="buttons">
+                    <a href="#" target="_blank" id="comprar-btn-${producto}">COMPRAR (0)</a>
+                    <a href="https://wa.me/573215970535" target="_blank">COTIZAR</a>
+                </div>
+                <button class="adjust-quantity" data-product="${producto}" data-action="decrease">-</button>
+                <span id="cantidad-${producto}">0</span>
+                <button class="adjust-quantity" data-product="${producto}" data-action="increase">+</button>
+            `;
+            container.appendChild(productoDiv);
+        }
+    }
+}
+
+
 // Actualizar el año en el footer
 document.getElementById("year").textContent = new Date().getFullYear();
 
