@@ -336,6 +336,40 @@ document.querySelectorAll('.adjust-quantity').forEach(button => {
         }
     });
 });
+
+// Ejemplo de función para crear un enlace de pago a través de Binance Pay API
+async function createBinancePayInvoice(amount, currency) {
+  const response = await fetch('https://api.binance.com/sapi/v1/binancepay/v2/transaction/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Binance-Pay-API-Key': 'TU_API_KEY',
+      'X-Binance-Pay-API-Secret': 'TU_API_SECRET',
+    },
+    body: JSON.stringify({
+      amount: amount,
+      currency: currency,
+      orderId: 'orden001',  // ID único para esta transacción
+      goodsType: 'Digital', // Tipo de producto
+      orderDescription: 'Compra de producto XYZ',
+      returnUrl: 'https://www.tusitio.com/pago-exitoso', // URL a la que será redirigido el cliente después del pago
+      cancelUrl: 'https://www.tusitio.com/cancelar-pago'  // URL si se cancela el pago
+    })
+  });
+  
+  const data = await response.json();
+  return data.data.paymentUrl;  // Aquí se obtiene el enlace de pago
+}
+
+// Función para llamar al proceso de pago y redirigir al cliente
+document.getElementById('comprar-btn').addEventListener('click', async function() {
+  const amount = 100;  // Importe de la compra
+  const currency = 'USDT';  // Moneda (puedes cambiarla a BTC o cualquier criptomoneda soportada)
+  const paymentLink = await createBinancePayInvoice(amount, currency);
+
+  // Redirige al cliente al enlace de pago generado
+  window.location.href = paymentLink;
+});
             document.getElementById("year").textContent = new Date().getFullYear();
         </script>
 
