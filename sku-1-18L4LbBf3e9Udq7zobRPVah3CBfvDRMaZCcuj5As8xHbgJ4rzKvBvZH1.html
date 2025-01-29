@@ -254,6 +254,28 @@
 
         <script>
 
+// Función para generar una factura Lightning
+async function generateInvoice(amountInSatoshis) {
+    const response = await fetch('http://<UMBREL_IP>:3001/api/v1/lightning/invoice', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer <YOUR_API_KEY>'
+        },
+        body: JSON.stringify({
+            amount: amountInSatoshis, // Monto de la factura en satoshis
+            memo: 'Compra de producto en @armeniaquindio'
+        })
+    });
+
+    if (!response.ok) {
+        throw new Error('Error al generar la factura');
+    }
+
+    const data = await response.json();
+    return data.payment_request; // Esto es lo que necesitas para crear el enlace Lightning
+}
+
     // Función para actualizar el enlace de compra con la factura de Lightning
     function updateLightningLink() {
         const quantity = document.getElementById('cantidad-comprar').textContent;
@@ -289,6 +311,29 @@ document.querySelectorAll('.adjust-quantity').forEach(button => {
 
         // Actualizar el número en el botón COMPRAR
         cantidadComprar.textContent = quantityElement.textContent;
+    });
+});
+
+document.querySelectorAll('.adjust-quantity').forEach(button => {
+    button.addEventListener('click', async function() {
+        // Obtener la cantidad del producto
+        const quantity = parseInt(document.getElementById('cantidad-comprar').textContent);
+        const pricePerItem = 1000; // Precio en satoshis
+
+        const totalPrice = quantity * pricePerItem; // Monto total en satoshis
+
+        try {
+            // Llamar a la función para generar la factura
+            const invoice = await generateInvoice(totalPrice);
+
+            // Crear el enlace de pago con la factura generada
+            const lightningLink = `lightning:${invoice}`;
+
+            // Actualizar el botón de compra con el enlace Lightning
+            document.getElementById("comprar-btn-1").setAttribute("href", lightningLink);
+        } catch (error) {
+            console.error('Error al generar la factura Lightning:', error);
+        }
     });
 });
             document.getElementById("year").textContent = new Date().getFullYear();
