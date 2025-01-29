@@ -71,127 +71,157 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        .container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%; 
-            max-width: 600px; 
-            padding: 20px;
-            overflow-y: auto; 
-            max-height: 80vh; 
-            height: 100%; 
-        }
-        h1, h2 {
-            font-size: 2.5em;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #666;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-        .buttons a {
-            display: block;
-            background-color: #000000;
-            color: white;
-            padding: 10px;
-            margin: 5px 0;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1em;
-            transition: background-color 0.3s;
-        }
-        .buttons a:hover {
-            background-color: #333333;
-        }
-        .footer {
-            font-size: 0.9em;
-            color: #777;
-            margin-top: 20px;
-        }
-        form {
-            margin-top: 20px;
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        input[type="text"], input[type="number"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        input[type="file"] {
-            margin: 10px 0;
-        }
-        button {
-            background-color: #000000;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #333333;
-        }
-        table {
-            width: 100%;
-            margin-top: 30px;
-            border-collapse: collapse;
-            overflow-x: auto;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ccc;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        td {
-            background-color: #fafafa;
-        }
-        h2 {
-            font-size: 1.8em;
-            color: #333;
-            margin-top: 20px;
-        }
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;  /* Evita el desbordamiento del contenido */
+}
 
-        .clickable {
-            color: #007BFF;
-            text-decoration: underline;
-            cursor: pointer;
-            transition: color 0.3s ease-in-out;
-        }
+.container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%; 
+    max-width: 600px; 
+    padding: 20px;
+    overflow-y: auto;  /* Habilita el desplazamiento si el contenido excede la altura */
+    max-height: 80vh;  /* Limita la altura del contenedor */
+    height: 100%; 
+}
 
-        .clickable:hover {
-            color: #0056b3;
-            text-decoration: none;
-        }
+.product iframe {
+    width: 100%;  /* Hace que el iframe ocupe todo el ancho disponible */
+    height: auto;  /* Ajusta la altura proporcionalmente */
+    border: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 8px;  /* Asegura que los bordes sean redondeados */
+    box-shadow: 0 2px 8px rgba(63,69,81,0.16);  /* Agrega sombra */
+    margin-top: 1.6em;
+    margin-bottom: 0.9em;
+}
 
-        /* Lazy loading de imágenes */
-        img[loading="lazy"] {
-            opacity: 0;
-            transition: opacity 0.3s ease-in;
-        }
-        img[loading="lazy"]:not([src=""]) {
-            opacity: 1;
-        }
+h1, h2 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.buttons a {
+    display: block;
+    background-color: #000000;
+    color: white;
+    padding: 10px;
+    margin: 5px 0;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.buttons a:hover {
+    background-color: #333333;
+}
+
+.footer {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 20px;
+}
+
+form {
+    margin-top: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="number"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="file"] {
+    margin: 10px 0;
+}
+
+button {
+    background-color: #000000;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #333333;
+}
+
+table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+td {
+    background-color: #fafafa;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-top: 20px;
+}
+
+.clickable {
+    color: #007BFF;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.clickable:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+/* Lazy loading de imágenes */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+img[loading="lazy"]:not([src=""]) {
+    opacity: 1;
+}
     </style>
 
   <!-- Google Tag Manager -->
