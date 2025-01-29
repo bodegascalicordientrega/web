@@ -478,6 +478,46 @@ window.onload = function() {
     agregarProductosAlHTML(); // Agregar productos al HTML
 };
 
+// Función para actualizar la cantidad de productos cuando se hace clic en los botones
+function actualizarCantidad(producto, action) {
+    const cantidadElement = document.getElementById(`cantidad-${producto}`);
+    let cantidad = parseInt(cantidadElement.innerText);
+
+    if (action === 'increase') {
+        cantidad++;
+    } else if (action === 'decrease' && cantidad > 0) {
+        cantidad--;
+    }
+
+    cantidadElement.innerText = cantidad;
+
+    // Actualizamos el precio basado en la cantidad seleccionada
+    const precioElement = document.getElementById(`precio-${producto}`);
+    const precioCOP = preciosCOP[producto] * cantidad;
+    calcularPrecioLightning(precioCOP).then(precioLightning => {
+        precioElement.innerText = `Precio: ${precioCOP} COP / ${precioLightning} satoshis`;
+    });
+
+    // Actualizamos el texto del botón "COMPRAR"
+    const comprarBtn = document.getElementById(`comprar-btn-${producto}`);
+    if (comprarBtn) {
+        comprarBtn.innerText = `COMPRAR (${cantidad})`;  // Actualiza el texto del botón
+    }
+}
+
+// Función para manejar clics en los botones de ajustar cantidad
+function manejarBotonCantidad() {
+    const botonesCantidad = document.querySelectorAll('.adjust-quantity');
+
+    botonesCantidad.forEach(boton => {
+        boton.addEventListener('click', (event) => {
+            const producto = event.target.dataset.product;
+            const action = event.target.dataset.action;
+            actualizarCantidad(producto, action);
+        });
+    });
+}
+
 // Actualizar el año en el footer
 document.getElementById("year").textContent = new Date().getFullYear();
 
