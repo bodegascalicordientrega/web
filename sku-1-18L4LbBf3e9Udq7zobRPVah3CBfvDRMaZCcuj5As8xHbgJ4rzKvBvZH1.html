@@ -215,12 +215,15 @@
             <p>SKU #1</p>
 
             <!-- SKU #1 -->
-            <div class="product">
-                <div style="position: relative; width: 100%; height: 0; padding-top: 56.2500%; box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); margin-top: 1.6em; margin-bottom: 0.9em; overflow: hidden; border-radius: 8px; will-change: transform;">
-                    <iframe loading="lazy" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;" src="https://www.canva.com/design/DAGdEKRrZ4s/joebJOL1XlFIr9UcW9E0eQ/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
-                </div>
-                <a href="https://www.canva.com/design/DAGdEKRrZ4s/joebJOL1XlFIr9UcW9E0eQ/view?utm_content=DAGdEKRrZ4s&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank" rel="noopener">Ver</a>
-            </div>
+            <div class="carousel-container">
+        <button class="prev" onclick="moveSlide(-1)">❮</button>
+        <div class="carousel">
+            <img src="https://via.placeholder.com/300x200/FF5733/FFFFFF?text=Producto+1" alt="Producto 1">
+            <img src="https://via.placeholder.com/300x200/33FF57/FFFFFF?text=Producto+2" alt="Producto 2">
+            <img src="https://via.placeholder.com/300x200/3357FF/FFFFFF?text=Producto+3" alt="Producto 3">
+        </div>
+        <button class="next" onclick="moveSlide(1)">❯</button>
+    </div>
 
             <!-- Inventario -->
             <section>
@@ -372,6 +375,15 @@ document.getElementById('comprar-btn').addEventListener('click', async function(
   // Redirige al cliente al enlace de pago generado
   window.location.href = paymentLink;
 });
+
+let index = 0;
+
+        function moveSlide(step) {
+            const carousel = document.querySelector('.carousel');
+            const images = document.querySelectorAll('.carousel img');
+            index = (index + step + images.length) % images.length;
+            carousel.style.transform = `translateX(${-index * 100}%)`;
+        }
             document.getElementById("year").textContent = new Date().getFullYear();
         </script>
 
