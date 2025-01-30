@@ -235,8 +235,8 @@
                                 <span id="cantidad-producto1">1</span>
                                 <button class="adjust-quantity" data-product="producto1" data-action="increase">+</button>
                             </td>
-                            <td id="precio-${producto}">Cargando...</td>
-                            <td id="stock-${producto}">Disponible</td>
+                            <td id="precio-producto1">Cargando...</td>
+<td id="stock-producto1">Disponible</td>
                         </tr>
                     </tbody>
                 </table>
@@ -360,12 +360,18 @@ async function createBinancePayInvoice(amount, currency) {
 
 // Función para llamar al proceso de pago y redirigir al cliente
 document.getElementById('comprar-btn').addEventListener('click', async function() {
-  const amount = 100;  // Importe de la compra
-  const currency = 'USDT';  // Moneda (puedes cambiarla a BTC o cualquier criptomoneda soportada)
-  const paymentLink = await createBinancePayInvoice(amount, currency);
-
-  // Redirige al cliente al enlace de pago generado
-  window.location.href = paymentLink;
+    try {
+        const amount = 100;  
+        const currency = 'USDT';  
+        const paymentLink = await createBinancePayInvoice(amount, currency);
+        if (paymentLink) {
+            window.location.href = paymentLink;
+        } else {
+            console.error("No se generó un enlace de pago.");
+        }
+    } catch (error) {
+        console.error("Error en la generación del pago:", error);
+    }
 });
 
 let index = 0;
