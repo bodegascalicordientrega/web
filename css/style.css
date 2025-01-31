@@ -1,35 +1,41 @@
-.carousel-container {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    max-width: 500px;
-}
+<style>
+    .video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: black;
+        z-index: -1; /* Para que quede en el fondo */
+    }
 
-.carousel {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
+    .video-container iframe {
+        width: 100vw;
+        height: 100vh;
+        border: none;
+    }
 
-.carousel img {
-    width: 100%;
-    height: auto;
-}
+    /* Ajustar contenido para que se muestre sobre el video */
+    .container {
+        position: relative;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 90%;
+        margin: auto;
+    }
+</style>
 
-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-}
-
-button:first-child {
-    left: 10px;
-}
-
-button:last-child {
-    right: 10px;
-}
+<div class="video-container">
+    <iframe 
+        src="https://www.youtube.com/embed/4J59H-M9iBY?autoplay=1&mute=1&loop=1&playlist=4J59H-M9iBY" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="autoplay; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+    </iframe>
+</div>
