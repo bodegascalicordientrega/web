@@ -251,6 +251,9 @@
 <!-- referido -->
 <input type="text" id="enlaceReferido" readonly>
 <button onclick="navigator.clipboard.writeText(document.getElementById('enlaceReferido').value)">Copiar Enlace</button>
+
+<!-- nfc -->
+<button onclick="pagarConNFC()">Pagar con NFC</button>
         
 <!-- Contactos -->
         <section>
@@ -583,6 +586,18 @@ async function registrarCompra() {
 }
 
 document.addEventListener("DOMContentLoaded", registrarCompra);
+
+async function pagarConNFC() {
+    if (!("NDEFReader" in window)) {
+        alert("Tu dispositivo no soporta NFC.");
+        return;
+    }
+
+    const nfc = new NDEFReader();
+    await nfc.write("lightning:lnurlp_tu_codigo");
+
+    alert("Pago procesado con Lightning NFC.");
+}
 
 // Actualizar el año en el footer automáticamente
 document.getElementById("year").innerText = new Date().getFullYear();
