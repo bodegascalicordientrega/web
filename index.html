@@ -569,6 +569,21 @@ function generarEnlaceReferido() {
 
 document.addEventListener("DOMContentLoaded", generarEnlaceReferido);
 
+async function registrarCompra() {
+    const params = new URLSearchParams(window.location.search);
+    const referido = params.get("ref");
+
+    if (referido) {
+        await fetch("/api/registrar-referido", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ referido, monto: 5000 }) // 5000 Satoshis de recompensa
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", registrarCompra);
+
 // Actualizar el año en el footer automáticamente
 document.getElementById("year").innerText = new Date().getFullYear();
 
