@@ -382,15 +382,24 @@ function agregarProductosAlHTML() {
 }
 
 // Función para buscar productos
-function searchProducts() {
-    const input = document.getElementById('searchInput');
-    const filter = input ? input.value.toLowerCase() : '';
-    const products = document.querySelectorAll('.product');
+function searchContacts() {
+    let input = document.getElementById("searchContactInput").value.toLowerCase();
+    let table = document.querySelector("table tbody");
+    let rows = table.getElementsByTagName("tr");
 
-    products.forEach(product => {
-        const title = product.querySelector('h2').textContent.toLowerCase();
-        product.style.display = title.includes(filter) ? 'block' : 'none';
-    });
+    for (let row of rows) {
+        let cells = row.getElementsByTagName("td");
+        let match = false;
+
+        for (let cell of cells) {
+            if (cell.textContent.toLowerCase().includes(input)) {
+                match = true;
+                break;
+            }
+        }
+
+        row.style.display = match ? "" : "none";
+    }
 }
 
 // Actualizar el año en el footer
