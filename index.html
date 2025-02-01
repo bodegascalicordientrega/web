@@ -237,6 +237,10 @@
 <p id="ultimaOferta">No hay ofertas aún.</p>
 <input type="number" id="montoOferta" placeholder="Ingrese BTC">
 <button onclick="hacerOferta(document.getElementById('montoOferta').value)">Ofertar</button>
+
+<!-- xmpp -->
+<input type="text" id="mensaje" placeholder="Escribe tu mensaje">
+<button onclick="enviarMensaje('vendedor@tu-servidor-xmpp.com', document.getElementById('mensaje').value)">Enviar</button>
         
 <!-- Contactos -->
         <section>
@@ -483,6 +487,38 @@ socket.onmessage = (event) => {
         document.getElementById("ultimaOferta").innerText = `${data.usuario} ofertó ${data.monto} BTC`;
     }
 };
+
+const BOSH_SERVICE = "https://tu-servidor-xmpp.com/http-bind/";
+const XMPP_DOMAIN = "tu-servidor-xmpp.com";
+const usuario = "comprador@tu-servidor-xmpp.com";
+const password = "clave123";
+
+const connection = new Strophe.Connection(BOSH_SERVICE);
+
+function conectarXMPP() {
+    connection.connect(usuario, password, (status) => {
+        if (status === Strophe.Status.CONNECTED) {
+            console.log("Conectado a XMPP");
+            connection.addHandler(recibirMensaje, null, "message", "chat");
+        } else if (status === Strophe.Status.AUTHFAIL) {
+            console.log("Fallo en la autenticación");
+        }
+    });
+}
+
+function recibirMensaje(msg) {
+    const from = msg.getAttribute("from");
+    const body = msg.getElementsByTagName("body")[0].textContent;
+    console.log(`Mensaje de ${from}: ${body}`);
+    return true;
+}
+
+function enviarMensaje(destinatario, mensaje) {
+    const reply = $msg({ to: destinatario, type: "chat" }).c("body").t(mensaje);
+    connection.send(reply);
+}
+
+document.addEventListener("DOMContentLoaded", conectarXMPP);
 
 // Actualizar el año en el footer automáticamente
 document.getElementById("year").innerText = new Date().getFullYear();
