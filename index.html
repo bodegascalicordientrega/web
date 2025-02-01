@@ -241,6 +241,9 @@
 <!-- xmpp -->
 <input type="text" id="mensaje" placeholder="Escribe tu mensaje">
 <button onclick="enviarMensaje('vendedor@tu-servidor-xmpp.com', document.getElementById('mensaje').value)">Enviar</button>
+
+<!-- recarga -->
+<button onclick="recargarSaldo(10000)">Recargar 10,000 Satoshis</button>
         
 <!-- Contactos -->
         <section>
@@ -519,6 +522,19 @@ function enviarMensaje(destinatario, mensaje) {
 }
 
 document.addEventListener("DOMContentLoaded", conectarXMPP);
+
+async function recargarSaldo(montoSatoshis) {
+    const response = await fetch("/api/crear-lnurl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: montoSatoshis })
+    });
+
+    const data = await response.json();
+    if (data.lnurl) {
+        window.location.href = `lightning:${data.lnurl}`;
+    }
+}
 
 // Actualizar el año en el footer automáticamente
 document.getElementById("year").innerText = new Date().getFullYear();
