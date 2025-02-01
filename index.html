@@ -232,6 +232,11 @@
 <!-- lnurl -->
 <a id="lnurl" href="#">Generar factura</a>
 <script>generarFacturaLNURL(10000);</script>
+
+<!-- oferta -->
+<p id="ultimaOferta">No hay ofertas aún.</p>
+<input type="number" id="montoOferta" placeholder="Ingrese BTC">
+<button onclick="hacerOferta(document.getElementById('montoOferta').value)">Ofertar</button>
         
 <!-- Contactos -->
         <section>
@@ -465,6 +470,19 @@ const pagoRecibido = {
 };
 
 enviarEventoNostr(pagoRecibido.pubkey, `Has recibido ${pagoRecibido.amount} satoshis! ⚡`);
+
+const socket = new WebSocket("wss://tu-servidor.com/subasta");
+
+function hacerOferta(monto) {
+    socket.send(JSON.stringify({ tipo: "oferta", usuario: "Usuario123", monto }));
+}
+
+socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    if (data.tipo === "nueva_oferta") {
+        document.getElementById("ultimaOferta").innerText = `${data.usuario} ofertó ${data.monto} BTC`;
+    }
+};
 
 // Actualizar el año en el footer automáticamente
 document.getElementById("year").innerText = new Date().getFullYear();
