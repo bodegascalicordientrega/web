@@ -254,6 +254,9 @@
 
 <!-- nfc -->
 <button onclick="pagarConNFC()">Pagar con NFC</button>
+
+<!-- metamask -->
+<button onclick="pagarConMetaMask()">Pagar con MetaMask</button>
         
 <!-- Contactos -->
         <section>
@@ -597,6 +600,23 @@ async function pagarConNFC() {
     await nfc.write("lightning:lnurlp_tu_codigo");
 
     alert("Pago procesado con Lightning NFC.");
+}
+
+async function pagarConMetaMask() {
+    if (!window.ethereum) {
+        alert("Instala MetaMask para continuar.");
+        return;
+    }
+
+    const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+    const direccion = accounts[0];
+
+    await ethereum.request({
+        method: "eth_sendTransaction",
+        params: [{ from: direccion, to: "DIRECCION_BTC", value: "10000000000000000" }]
+    });
+
+    alert("Pago enviado.");
 }
 
 // Actualizar el año en el footer automáticamente
