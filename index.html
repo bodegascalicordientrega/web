@@ -244,6 +244,13 @@
 
 <!-- recarga -->
 <button onclick="recargarSaldo(10000)">Recargar 10,000 Satoshis</button>
+
+<!-- nostr -->
+<button onclick="loginConNostr()">Iniciar sesión con Nostr</button>
+
+<!-- referido -->
+<input type="text" id="enlaceReferido" readonly>
+<button onclick="navigator.clipboard.writeText(document.getElementById('enlaceReferido').value)">Copiar Enlace</button>
         
 <!-- Contactos -->
         <section>
@@ -535,6 +542,32 @@ async function recargarSaldo(montoSatoshis) {
         window.location.href = `lightning:${data.lnurl}`;
     }
 }
+
+async function publicarEnNostr(producto) {
+    const evento = {
+        kind: 1,
+        created_at: Math.floor(Date.now() / 1000),
+        tags: [["e", "publicaciones"]],
+        content: `🛒 Nuevo producto: ${producto.nombre} - ${producto.precio} sats ⚡`
+    };
+
+    if (window.nostr) {
+        await window.nostr.signEvent(evento);
+        const relay = new WebSocket("wss://relay.damus.io");
+        relay.onopen = () => relay.send(JSON.stringify(["EVENT", evento]));
+    }
+}
+
+const nuevoProducto = { nombre: "Camiseta Bitcoin", precio: 50000 };
+publicarEnNostr(nuevoProducto);
+
+function generarEnlaceReferido() {
+    const usuarioId = "user123"; // Este ID debe ser dinámico según el usuario autenticado
+    const enlaceReferido = `${window.location.origin}/?ref=${usuarioId}`;
+    document.getElementById("enlaceReferido").value = enlaceReferido;
+}
+
+document.addEventListener("DOMContentLoaded", generarEnlaceReferido);
 
 // Actualizar el año en el footer automáticamente
 document.getElementById("year").innerText = new Date().getFullYear();
